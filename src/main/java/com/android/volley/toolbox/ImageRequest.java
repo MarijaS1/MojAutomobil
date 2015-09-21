@@ -28,6 +28,8 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView.ScaleType;
 
+import org.json.JSONException;
+
 /**
  * A canned request for getting an image at a given URL and calling
  * back with a decoded Bitmap.
@@ -216,7 +218,11 @@ public class ImageRequest extends Request<Bitmap> {
 
     @Override
     protected void deliverResponse(Bitmap response) {
-        mListener.onResponse(response);
+        try {
+            mListener.onResponse(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
